@@ -1,12 +1,13 @@
 import { useState } from 'react'
-
+import Score from './components/Score'
+ 
 function App() {
 
 
   return (
-    <>
-    <p className='text-red-500'>Alger</p>
-    </>
+    <div className='App flex  justify-center mt-10'>
+     <Score/>
+    </div>
   )
 }
 
