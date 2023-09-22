@@ -21,7 +21,7 @@ body{
   @apply font-Oswald;
 }
 .outside-circle{
-  @apply w-52 h-52 flex justify-center items-center rounded-full shadow-ninner-4  shadow-stone-500;
+  @apply  flex justify-center items-center rounded-full shadow-ninner-4  shadow-stone-500;
   position: relative;
  
 }
@@ -37,5 +37,5 @@ body{
   transform: rotate(-35deg)
 } */
 .inside-circle{
-  @apply w-40 h-40 rounded-full  flex items-center  justify-center  shadow-inner-4  shadow-stone-500 bg-white ;
+  @apply  rounded-full  flex items-center  justify-center  shadow-inner-4  shadow-stone-500 bg-white ;
 }
