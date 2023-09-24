@@ -19,7 +19,15 @@ export default {
       backgroundImage: {
         'triangle': "url('/bg-triangle.svg')",
  
-      }
+      },
+      // keyframes:{
+      //   pulsecall:{
+      //     '0%':{transform:scale(0.5),opacity:0},
+      //     '50%':{transform:scale(1),opacity:1}
+      //     '100%':{transform:}
+      //   }
+        
+      // }
     }
   },
   plugins: [],

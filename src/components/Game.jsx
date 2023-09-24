@@ -19,19 +19,27 @@ function Game({SetScore,score}) {
   const [showNewContent, setShowNewContent] = useState(false);
   //message after game 
   const [result,setResult]=useState(null)
+  const [msg,Setmsg]=useState(null)
+  const [rand,setRand]=useState(null)
   // Function to change the content after a delay
   const changeContentWithDelay = (cjoueur) => {
     let CComputer=computerChoice()
     console.log(CComputer)
-    SetChoiceComputer(ReturnChoice(CComputer))
+    setRand(CComputer)
   
 
     setTimeout(() => {
+     
+     
       setResult(Result(cjoueur,CComputer))
-    
+      console.log(ReturnChoice(CComputer))
       setShowNewContent(true);
     }, 1000); // Change content after 3 seconds (adjust the delay as needed)
+
   };
+  useEffect(()=>{
+    SetChoiceComputer(ReturnChoice(rand))
+  },[rand,result])
   const Picked = (cRef) => {
     // document.querySelector('.container').style.display = 'none';
 
@@ -49,34 +57,27 @@ function Game({SetScore,score}) {
     return randomChoice
   }
   const ReturnChoice=(picked)=>{
-    let choice=null
-    switch (picked) {
-      case "paper":
-        choice= ( <div className={`outside-circle w-72 h-72 max-md:w-32 max-md:h-32 cursor-pointer bg-ColorHand`}  onClick={()=>Picked(CRef)} ref={paperRef}>
-            <div className='inside-circle w-52 h-52  max-md:w-24 max-md:h-24  bg-white '>
-                <img src={Paper} alt="Paper" className='w-24  max-md:w-10'/>
-            </div>
-          </div>)
-        break;
-      case "scissors":
-        choice= ( <div className={`outside-circle w-72 h-72 max-md:w-32 max-md:h-32 cursor-pointer bg-ColorScissor`}  onClick={()=>Picked(CRef)} ref={paperRef}>
-            <div className='inside-circle w-52 h-52  max-md:w-24 max-md:h-24  bg-white '>
-            <img src={Scissors} alt="scissors" className='w-24 max-md:w-10'/>
-        </div>
-      </div>)
-        break;
-      case "rock":
-        choice= ( <div className={`outside-circle w-72 h-72 max-md:w-32 max-md:h-32 cursor-pointer bg-ColorRock`}  onClick={()=>Picked(CRef)} ref={paperRef}>
-            <div className='inside-circle w-52 h-52  max-md:w-24 max-md:h-24  bg-white '>
-            <img src={Rock} alt="rock" className='w-24 max-md:w-10'/>
-        </div>
-      </div>)
-        break;
-        
-      default:
-        break;
+   
+    let sr_c;
+    let color_sr_c;
+    if(picked==="paper"){
+      sr_c=Paper
+      color_sr_c="bg-ColorHand"
+    }else if(picked==="rock"){
+      sr_c=Rock
+      color_sr_c="bg-ColorRock"
+    }else{
+      sr_c=Scissors
+      color_sr_c="bg-ColorScissor"
     }
-    return choice;
+    console.log("result:PICKED",msg,":",picked)
+    return (
+   <div className={`${(msg===picked)? "solution" : ""} outside-circle w-72 h-72 max-md:w-32 max-md:h-32 cursor-pointer ${color_sr_c}`} >
+    <div className='inside-circle w-52 h-52  max-md:w-24 max-md:h-24  bg-white '>
+        <img src={sr_c} alt="Paper" className='w-24  max-md:w-10'/>
+    </div>
+  </div>
+  );
   }
   const Result=(Jchoice,Cchoice)=>{
     const combinations = [
@@ -112,11 +113,15 @@ function Game({SetScore,score}) {
         }
         
 
-       
+        Setmsg(temp[0])
         return (
           <div className='flex flex-col justify-center md:gap-10  max-md:gap-4 items-center h-fit mx-20 max-md:mt-10'>
              <p className='text-5xl text-white font-bold max-md:text-4xl '>{message}</p>
-             <button className={`${colormessage} font-semibold w-48 bg-white py-3 rounded-md`} onClick={()=>{SetPicked(null);setShowNewContent(null);SetChoiceComputer(null);setResult(null)}}>PLAY AGAIN</button>
+             <button className={`${colormessage} font-semibold w-48 bg-white py-3 rounded-md`} onClick={()=>{
+              SetPicked(null);setShowNewContent(null);SetChoiceComputer(null);setResult(null);Setmsg(null);
+              document.querySelector('.outside-circle').classList.remove('solution')
+            }
+              }>PLAY AGAIN</button>
           </div>
          );
       }
@@ -150,7 +155,7 @@ function Game({SetScore,score}) {
 
           <div className='picked max-md:flex-col-reverse flex flex-col w-1/2  items-center'>
             <h3 className='text-white text-3xl max-md:mt-8  md:mb-14 text-center max-md:text-xl'>THE HOUSE PICKED</h3>
-            {showNewContent ? (
+            {showNewContent  ? (
               /* This content will be shown after the delay */
                 choiceCompute
                 ) : (
@@ -184,7 +189,7 @@ function Game({SetScore,score}) {
       );
     }
     SetContent(temp); // Update the content state
-  }, [picked,showNewContent,result]);
+  }, [picked,showNewContent,result,choiceCompute]);
 
   return (
     <>

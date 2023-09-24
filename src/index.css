@@ -23,7 +23,10 @@ body{
 .outside-circle{
   @apply  flex justify-center items-center rounded-full shadow-ninner-4  shadow-stone-500;
   position: relative;
- 
+ z-index: 5;
+}
+.card{
+  z-index: 10;
 }
 /* .hand::before{
   content: "";
@@ -37,5 +40,41 @@ body{
   transform: rotate(-35deg)
 } */
 .inside-circle{
+  z-index: 5;
   @apply  rounded-full  flex items-center  justify-center  shadow-inner-4  shadow-stone-500 bg-white ;
+}
+.solution:before{
+  content:'';
+  position: absolute;
+  z-index: -1;
+
+  width: calc(100% + 50px);
+  height: calc(100% + 50px);
+  border-radius: 100%;
+  border:100px solid rgba(255, 255, 255, 0.115);
+  animation:pulseeffect 1.5s linear infinite;
+}
+.solution::after{
+  content:'';
+  position: absolute;
+  z-index: -1;
+
+  width: calc(100% + 50px);
+  height: calc(100% + 50px);
+  border-radius: 100%;
+  border:100px solid rgba(255, 255, 255, 0.115);
+  animation:pulseeffect 1.5s linear infinite;
+  animation-delay:1s ;
+}
+@keyframes pulseeffect {
+  0%{
+    transform:scale(0.5);opacity:0;
+  }
+  50%{
+    transform:scale(1);opacity:1;
+  }
+  100%{
+    transform:scale(1.4);opacity:0;
+
+  }
 }
