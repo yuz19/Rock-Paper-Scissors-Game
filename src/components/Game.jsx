@@ -3,7 +3,7 @@ import Paper from '../assets/icon-paper.svg';
 import Scissors from '../assets/icon-scissors.svg';
 import Rock from '../assets/icon-rock.svg';
 import Choices from './Choices';
-import Triangle from '../assets/bg-Triangle.svg';
+import Triangle from '/bg-triangle.svg';
 
 function Game({SetScore,score}) {
   const paperRef = useRef(null);
